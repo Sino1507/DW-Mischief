@@ -940,7 +940,8 @@ function library:FormatWindows()
 end
 
 function library:DestroyWindow()
-	imgui:Destroy() 
+	local imgui = game:GetService("CoreGui"):FindFirstChild("imgui")
+	if imgui then imgui:Destroy() end
 end
 
 function library:AddWindow(title, options)
@@ -1129,12 +1130,23 @@ function library:AddWindow(title, options)
 					new_tab.Visible = true
 				end
 
+				local function DestroyMe()
+					new_button:Destroy()
+					new_tab:Destroy()
+
+					tab_data = {}
+				end
+
 				new_button.MouseButton1Click:Connect(function()
 					show()
 				end)
 
 				function tab_data:Show()
 					show()
+				end
+
+				function tab_data:DestroyWindow()
+					DestroyMe()
 				end
 
 				do -- Tab Elements
