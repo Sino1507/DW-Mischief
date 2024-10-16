@@ -137,9 +137,8 @@ function ModuleEditor:Init(Editor)
 end
 
 function ModuleEditor:Completed(Editor) 
-    Editor.Callback(Editor.Result)
-
     ModuleEditor.Active -= 1
+    Editor.Callback(Editor.Result)
     Editor = nil
 end
 
