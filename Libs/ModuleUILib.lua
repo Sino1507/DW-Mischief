@@ -940,8 +940,7 @@ function library:FormatWindows()
 end
 
 function library:DestroyWindow()
-	local imgui = game:GetService("CoreGui"):FindFirstChild("imgui")
-	if imgui then imgui:Destroy() end
+	imgui:Destroy() 
 end
 
 function library:AddWindow(title, options)
