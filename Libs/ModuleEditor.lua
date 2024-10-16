@@ -19,6 +19,7 @@ end]]
 
 ModuleEditor.UI = nil
 ModuleEditor.UIWindow = nil 
+ModuleEditor.Active = 0
 
 function ModuleEditor.new(Name, Data, Callback)
     local NewModuleEditor = {}
@@ -131,12 +132,14 @@ function ModuleEditor:Init(Editor)
     local Window = ModuleEditor:StartUI('Module Editor - Toggle with RightShift')
     Editor.Window = Window:AddTab(Editor.Name or 'Editor')
 
+    ModuleEditor.Active += 1
     ModuleEditor:InitUI(Editor)
 end
 
 function ModuleEditor:Completed(Editor) 
     Editor.Callback(Editor.Result)
 
+    ModuleEditor.Active -= 1
     Editor = nil
 end
 
