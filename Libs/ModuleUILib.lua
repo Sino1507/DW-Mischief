@@ -802,8 +802,6 @@ Windows.BackgroundTransparency = 1
 Windows.Position = UDim2.new(0, 20, 0, 20)
 Windows.Size = UDim2.new(1, 20, 1, -20)
 
---[[ Script ]]--
-
 
 local UIS = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
