@@ -128,7 +128,7 @@ end
 function ModuleEditor:Init(Editor)
     local Data = Editor.Data or ''
 
-    local Window = ModuleEditor:StartUI()
+    local Window = ModuleEditor:StartUI('Module Editor - Toggle with RightShift')
     Editor.Window = Window:AddTab(Editor.Name or 'Editor')
 
     ModuleEditor:InitUI(Editor)
