@@ -2,6 +2,7 @@ local ModuleEditor = {}
 ModuleEditor.__index = ModuleEditor
 
 local args = {...}
+print(#args)
 if #args == 0 then error('[ModuleEditor] Insufficient arguments. (Expected atleast 1 Argument -> ModuleScript)') end 
 
 ModuleEditor.Lib = {}
