@@ -1097,6 +1097,10 @@ function library:AddWindow(title, options)
 		local tab_buttons = tab_selection:FindFirstChild("TabButtons")
 
 		do -- Add Tab
+			function window_data:CountTabs()
+				return #tabs:GetChildren()
+			end
+			
 			function window_data:AddTab(tab_name)
 				local tab_data = {}
 				tab_name = tostring(tab_name or "New Tab")
