@@ -1,9 +1,3 @@
---[[
-	ui-engine-v2
-	version 1.3a
-	by Singularity (V3rm @ King Singularity) (Discord @ Singularity#5490)
---]]
-
 local ui_options = {
 	main_color = Color3.fromRGB(41, 74, 122),
 	min_size = Vector2.new(400, 300),
@@ -945,6 +939,11 @@ end
 
 function library:FormatWindows()
 	format_windows()
+end
+
+function library:DestroyWindow()
+	local imgui = game:GetService("CoreGui"):FindFirstChild("imgui")
+	if imgui then imgui:Destroy() end
 end
 
 function library:AddWindow(title, options)
