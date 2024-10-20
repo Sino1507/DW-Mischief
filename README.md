@@ -23,6 +23,15 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Sino1507/DW-Mischief/
 - Craft ANY Item (for free)
   - Item Searcher
 - Dupe Inventory
+- Mod Item
+- Break Items
+- Delete Items
+- Inf Ammo
+- Inf Stamina
+- Block Hunger
+- Block Virus
+- Block Debuffs
+- Inf Buffs
 - CFrame Speed
 - ClickTP
 - Teleports
