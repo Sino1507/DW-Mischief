@@ -1113,9 +1113,25 @@ function library:AddWindow(title, options)
 				new_button.ZIndex = new_button.ZIndex + (windows * 10)
 				new_button:GetChildren()[1].ZIndex = new_button:GetChildren()[1].ZIndex + (windows * 10)
 
-				local new_tab = Prefabs:FindFirstChild("Tab"):Clone()
-				new_tab.Parent = tabs
-				new_tab.ZIndex = new_tab.ZIndex + (windows * 10)
+				----local new_tab = Prefabs:FindFirstChild("Tab"):Clone()
+				--new_tab.ZIndex = new_tab.ZIndex + (windows * 10)
+
+                local new_tab = Instance.new("ScrollingFrame")
+                new_tab.Name = "Tab"
+                new_tab.Parent = tabs
+                new_tab.BackgroundTransparency = 1
+                new_tab.Size = UDim2.new(1, 0, 1, 0)
+                new_tab.ScrollBarThickness = 6
+                new_tab.CanvasSize = UDim2.new(0, 0, 0, 0)
+                new_tab.AutomaticCanvasSize = Enum.AutomaticSize.Y
+                new_tab.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
+                new_tab.ZIndex = 10 + (windows * 10)
+
+                -- Add a UIListLayout to support dynamic layout
+                local layout = Instance.new("UIListLayout")
+                layout.SortOrder = Enum.SortOrder.LayoutOrder
+                layout.Padding = UDim.new(0, 5)
+                layout.Parent = new_tab
 
 				local function show()
 					if dropdown_open then return end
