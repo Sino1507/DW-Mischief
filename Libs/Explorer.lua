@@ -27,9 +27,7 @@ end
 
 -- Internal: Initialize or retrieve the UI Window using the same UI Lib
 function Explorer:StartUI(Title, Color, Size, ToggleKey, CanResize)
-    -- Load the UI library once
     self.UI = self.UI or loadstring(game:HttpGet('https://raw.githubusercontent.com/Sino1507/DW-Mischief/main/Libs/ModuleUILib.lua'))()
-    -- Create or reuse the main window
     local window = self.UIWindow or self.UI:AddWindow(Title or 'Explorer', {
         main_color = Color or Color3.fromRGB(41, 74, 122),
         min_size = Size or Vector2.new(400, 500),
@@ -41,27 +39,23 @@ function Explorer:StartUI(Title, Color, Size, ToggleKey, CanResize)
 end
 
 -- Recursive: Adds entries for an Instance and its children
--- @param container: UI Folder or Tab
+-- @param container: UI Folder or ScrollingFrame
 -- @param inst: Instance to represent
 function Explorer:createEntry(container, inst)
-    -- If the Instance has children, create a folder
     local children = inst:GetChildren()
     if #children > 0 then
         local folderUI = container:AddFolder(inst.Name)
-        -- Recursively add each child
         for _, child in ipairs(children) do
             self:createEntry(folderUI, child)
         end
     else
-        -- Leaf node: add as a button
         container:AddButton(inst.Name, function()
-            -- Invoke callback with the clicked instance
             self.Callback(inst)
         end)
     end
 end
 
--- Internal: Build the UI and populate entries
+-- Internal: Build the UI and populate entries with scrolling support
 function Explorer:Init()
     local mainWindow = self:StartUI(
         'Explorer - Toggle with RightShift',
@@ -75,8 +69,25 @@ function Explorer:Init()
     local tab = mainWindow:AddTab(self.Name)
     Explorer.Active += 1
 
-    -- Start recursion at the entry point
-    self:createEntry(tab, self.EntryPoint)
+    -- Wrap tab contents in a ScrollingFrame
+    local content = Instance.new("ScrollingFrame")
+    content.Name = "ExplorerScroll"
+    content.Parent = tab
+    content.BackgroundTransparency = 1
+    content.Size = UDim2.new(1, 0, 1, 0)
+    content.CanvasSize = UDim2.new(0, 0, 0, 0)
+    content.ScrollBarThickness = 6
+
+    local layout = Instance.new("UIListLayout")
+    layout.Parent = content
+    layout.SortOrder = Enum.SortOrder.LayoutOrder
+    layout.Padding = UDim.new(0, 5)
+    layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+        content.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y)
+    end)
+
+    -- Start recursion at the entry point into the scrolling container
+    self:createEntry(content, self.EntryPoint)
 end
 
 -- Public: Start the Explorer UI
