@@ -46,7 +46,7 @@
  function Explorer:createEntry(container, inst)
      -- If the Instance has children, create a folder
      local children = inst:GetChildren()
-     if #children > 0 then
+     if inst:IsA('Folder') then
          local folderUI = container:AddFolder(inst.Name)
          -- Recursively add each child
          for _, child in ipairs(children) do
