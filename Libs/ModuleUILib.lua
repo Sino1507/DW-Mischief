@@ -1125,7 +1125,7 @@ function library:AddWindow(title, options)
                 new_tab.CanvasSize = UDim2.new(0, 0, 0, 0)
                 new_tab.AutomaticCanvasSize = Enum.AutomaticSize.Y
                 new_tab.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
-                new_tab.ZIndex = 10 + (windows * 10)
+                new_tab.ZIndex = new_tab.ZIndex + (windows * 10)
 
                 -- Add a UIListLayout to support dynamic layout
                 local layout = Instance.new("UIListLayout")
